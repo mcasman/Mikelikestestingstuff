@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+import sys, feedparser
+
+def parsing():
+    gfeed = feedparser.parse("http://planetcallofduty.gamespy.com/show_rss.php")
+    ffeed = feedparser.parse("http://www.minecraftforum.net/rss/writ/1-news/")
+
+    userchoice = raw_input("Please enter facebook or google to continue: ")
+
+    while userchoice not in set(['google', 'Google', 'facebook', 'Facebook']):
+        print("\n" + "Non authorized feed, please try again." + "\n")
+        userchoice = raw_input("Please enter it again: ")
+    if userchoice in set(['google', 'Google']):
+        for i in range(3):
+            gtitle = gfeed.entries[i].title
+            glink =  gfeed.entries[i].link
+        torl = raw_input('Ok loading Google...title or link? ')
+        if torl in set(['title', 'link']):
+            print gtitle
+            print glink
+            print 'Thanks for playing.' + '\n'
+            torl = raw_input('Load more? ')
+            if torl in set(['no', 'No']):
+                print 'Thanks for playing!.'
+                return
+            else:
+                print '\n' + '...loading some more...' + '\n'
+                for i in range(5):
+                    gtitle = gfeed.entries[i].title
+                    glink =  gfeed.entries[i].link
+                    print gtitle + '\n'
+                    print glink + '\n'
+    if userchoice in set(['facebook', 'Facebook']):
+        for i in range(1):
+            print ffeed.entries[i].title
+            print ffeed.entries[i].link
+            #print ffeed.entries[i].description
+parsing()
